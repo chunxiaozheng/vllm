@@ -6,6 +6,7 @@ from typing import Callable, Optional
 from vllm.distributed.kv_events import (AllBlocksCleared, BlockRemoved,
                                         BlockStored, KVCacheEvent)
 from vllm.logger import init_logger
+from vllm.v1.core.interfaces import AbstractBlockPool
 from vllm.v1.core.kv_cache_utils import (BlockHashType, FreeKVCacheBlockQueue,
                                          KVCacheBlock,
                                          generate_block_hash_extra_keys,
@@ -15,7 +16,7 @@ from vllm.v1.request import Request
 logger = init_logger(__name__)
 
 
-class BlockPool:
+class BlockPool(AbstractBlockPool):
     """BlockPool that manages KVCacheBlocks.
     It provides methods to allocate, free and cache the kv cache blocks. The
     free_block_queue stores the free blocks in eviction order to enable

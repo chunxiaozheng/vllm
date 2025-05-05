@@ -8,6 +8,7 @@ from vllm.distributed.kv_events import KVCacheEvent
 from vllm.logger import init_logger
 from vllm.utils import cdiv, sha256
 from vllm.v1.core.block_pool import BlockPool
+from vllm.v1.core.interfaces import AbstractKVCacheManager
 from vllm.v1.core.kv_cache_utils import (BlockHashType, KVCacheBlock,
                                          hash_request_tokens)
 from vllm.v1.core.specialized_manager import get_specialized_manager
@@ -18,7 +19,7 @@ from vllm.v1.request import Request, RequestStatus
 logger = init_logger(__name__)
 
 
-class KVCacheManager:
+class KVCacheManager(AbstractKVCacheManager):
 
     def __init__(
         self,
